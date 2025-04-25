@@ -1,47 +1,52 @@
-<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+@extends('layout')
 
-<h1>Pacientes Cadastrados</h1>
+@section('title', 'Pacientes Cadastrados')
 
+@section('content')
+    <h1>Pacientes Cadastrados</h1>
 
-@if(session('success'))
-    <p style="color:green">{{ session('success') }}</p>
-@endif
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
 
-<a href="{{ route('pacientes.create') }}">Novo Paciente</a>
+    <div class="action-buttons">
+        <a href="{{ route('pacientes.create') }}" class="btn btn-primary">Novo Paciente</a>
+    </div>
 
-<table border="1" cellpadding="5">
-    <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>CPF</th>
-        <th>Email</th>
-        <th>Idade</th>
-        <th>Foto</th>
-        <th>Ações</th>
-    </tr>
-
-    @foreach ($pacientes as $p)
+    <table>
         <tr>
-            <td>{{ $p->id }}</td>
-            <td>{{ $p->nome }}</td>
-            <td>{{ $p->cpf }}</td>
-            <td>{{ $p->email }}</td>
-            <td>{{ $p->idade }}</td>
-            <td>
-                @if($p->foto)
-                    <img src="{{ asset('storage/' . $p->foto) }}" width="60">
-                @else
-                    Sem foto
-                @endif
-            </td>
-            <td>
-                <a href="{{ route('pacientes.edit', $p) }}">Editar</a> |
-                <form action="{{ route('pacientes.destroy', $p) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" onclick="return confirm('Tem certeza?')">Excluir</button>
-                </form>
-            </td>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Email</th>
+            <th>Idade</th>
+            <th>Foto</th>
+            <th>Ações</th>
         </tr>
-    @endforeach
-</table>
+
+        @foreach ($pacientes as $p)
+            <tr>
+                <td>{{ $p->id }}</td>
+                <td>{{ $p->nome }}</td>
+                <td>{{ $p->cpf }}</td>
+                <td>{{ $p->email }}</td>
+                <td>{{ $p->idade }}</td>
+                <td>
+                    @if($p->foto)
+                        <img src="{{ asset('storage/' . $p->foto) }}" width="60" class="img-preview">
+                    @else
+                        Sem foto
+                    @endif
+                </td>
+                <td class="action-buttons">
+                    <a href="{{ route('pacientes.edit', $p) }}" class="btn btn-primary">Editar</a>
+                    <form action="{{ route('pacientes.destroy', $p) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza?')">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
+    </table>
+@endsection
