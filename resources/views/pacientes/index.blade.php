@@ -14,6 +14,7 @@
     </div>
 
     <table>
+    <thead>
         <tr>
             <th>ID</th>
             <th>Nome</th>
@@ -23,7 +24,8 @@
             <th>Foto</th>
             <th>Ações</th>
         </tr>
-
+    </thead>
+    <tbody>
         @foreach ($pacientes as $p)
             <tr>
                 <td>{{ $p->id }}</td>
@@ -38,15 +40,18 @@
                         Sem foto
                     @endif
                 </td>
-                <td class="action-buttons">
-                    <a href="{{ route('pacientes.edit', $p) }}" class="btn btn-primary">Editar</a>
-                    <form action="{{ route('pacientes.destroy', $p) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza?')">Excluir</button>
-                    </form>
+                <td class="action-cell">
+                    <div class="action-buttons">
+                        <a href="{{ route('pacientes.edit', $p) }}" class="btn btn-primary">Editar</a>
+                        <form action="{{ route('pacientes.destroy', $p) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza?')">Excluir</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
         @endforeach
-    </table>
+    </tbody>
+</table>
 @endsection
