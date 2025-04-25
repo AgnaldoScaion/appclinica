@@ -1,4 +1,7 @@
+<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+
 <h1>Pacientes Cadastrados</h1>
+
 
 @if(session('success'))
     <p style="color:green">{{ session('success') }}</p>

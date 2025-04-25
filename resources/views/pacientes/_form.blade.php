@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+
 <form action="{{ $action }}" method="POST" enctype="multipart/form-data">
     @csrf
     @if($method === 'PUT')
